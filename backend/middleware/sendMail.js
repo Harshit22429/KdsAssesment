@@ -25,11 +25,13 @@ const SendMail1 = async(userMessage)=>{
             subject:"send email using nodemailer and gmail! ",
             text:userMessage
         }
-        await transporter.sendMail(mailOptions);
-        console.log('email has been sent !');
-
+        transporter.sendMail(mailOptions);
+        
     }catch(error){
-        console.error(error);
+        return res.status(400).json({
+            success:false,
+            message:error.message,
+        })
     }
 }
 

@@ -3,13 +3,13 @@ const jwt = require('jsonwebtoken');
 
 const isAuthentication = async(req, res, next)=>{
     try {
-        console.log(req.cookies)
+        // console.log(req.cookies)
         const {userToken} = req.cookies;
-        console.log("from token" ,userToken);
         if(!userToken){
+            console.log("from token" ,userToken);
             return res.status(400).json({
                 success:false,
-                message:"Login to user this request",
+                message:"User should logged in for this request",
             })
         }
         const decoded = jwt.verify(userToken, process.env.JWT_SECRET);
@@ -19,7 +19,6 @@ const isAuthentication = async(req, res, next)=>{
             req.user = user;
             next();
         }
-
     } catch (error) {
         return res.status(400).json({
             success:false,
